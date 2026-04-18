@@ -1,0 +1,1478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- SEO Meta Tags -->
+  <title>Password Strength Testing Tool – Check & Secure Your Password | TrustedByRaju</title>
+  <meta name="description" content="Use our free Password Strength Testing Tool to instantly check if your password is weak, medium, or strong. 100% private, client-side only – no data stored." />
+  <meta name="keywords" content="password strength checker, password strength testing tool, strong password generator tips, how to create secure passwords, check password strength online" />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="TrustedByRaju" />
+  <link rel="canonical" href="https://trustedbyraju.github.io/Password-Strength-Testing-Tool/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Password Strength Testing Tool – TrustedByRaju" />
+  <meta property="og:description" content="Instantly check your password strength for free. Secure, private, mobile-friendly tool. No data stored." />
+  <meta property="og:url" content="https://trustedbyraju.github.io/Password-Strength-Testing-Tool/" />
+  <meta property="og:site_name" content="TrustedByRaju" />
+  <meta property="og:image" content="https://trustedbyraju.github.io/Password-Strength-Testing-Tool/og-image.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Password Strength Testing Tool – TrustedByRaju" />
+  <meta name="twitter:description" content="Check your password strength instantly. Free, secure & private." />
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "TrustedByRaju",
+      "url": "https://trustedbyraju.github.io/Password-Strength-Testing-Tool/",
+      "description": "Free online Password Strength Testing Tool – check your password instantly and securely."
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Password Strength Testing Tool – How to Create Secure Passwords",
+      "description": "Learn how to test your password strength, create secure passwords, and protect your online accounts using our free tool.",
+      "author": { "@type": "Organization", "name": "TrustedByRaju" },
+      "publisher": { "@type": "Organization", "name": "TrustedByRaju" },
+      "url": "https://trustedbyraju.github.io/Password-Strength-Testing-Tool/"
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is this password strength tool safe to use?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, completely. Our tool runs 100% in your browser using client-side JavaScript. Your password is never sent to any server or stored anywhere."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What makes a password strong?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A strong password is at least 12 characters long and combines uppercase letters, lowercase letters, numbers, and special characters like !@#$%."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does the password strength checker work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Our tool analyzes your password in real-time across four criteria: length, uppercase/lowercase letters, numbers, and special characters. Each criterion adds to the overall strength score."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is a good password length?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Security experts recommend a minimum of 12 characters. Passwords with 16 or more characters are considered very strong when combined with mixed character types."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Should I use a password manager?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Password managers help you generate and store complex, unique passwords for every account. This dramatically reduces your risk of being hacked."
+          }
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://trustedbyraju.github.io/" },
+        { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://trustedbyraju.github.io/tools/" },
+        { "@type": "ListItem", "position": 3, "name": "Password Strength Testing Tool", "item": "https://trustedbyraju.github.io/Password-Strength-Testing-Tool/" }
+      ]
+    }
+  ]
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ==============================
+       CSS VARIABLES & RESET
+    ============================== */
+    :root {
+      --bg: #0a0c10;
+      --surface: #111318;
+      --surface2: #181c23;
+      --border: rgba(255,255,255,0.07);
+      --border-hover: rgba(255,255,255,0.15);
+      --text: #e8eaf0;
+      --muted: #7a7f8e;
+      --accent: #00e5a0;
+      --accent-dim: rgba(0,229,160,0.12);
+      --accent-glow: rgba(0,229,160,0.25);
+      --weak: #ff4d6d;
+      --medium: #ffc947;
+      --strong: #00e5a0;
+      --font-display: 'Syne', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+      --radius: 14px;
+      --radius-lg: 22px;
+      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border-hover); border-radius: 3px; }
+
+    /* ==============================
+       TYPOGRAPHY
+    ============================== */
+    h1, h2, h3, h4 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      line-height: 1.2;
+      color: #fff;
+    }
+    h1 { font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 800; }
+    h2 { font-size: clamp(1.5rem, 3.5vw, 2.2rem); font-weight: 700; }
+    h3 { font-size: clamp(1.1rem, 2vw, 1.4rem); font-weight: 600; }
+    p { color: var(--muted); }
+    a { color: var(--accent); text-decoration: none; transition: opacity var(--transition); }
+    a:hover { opacity: 0.8; }
+
+    /* ==============================
+       LAYOUT UTILITIES
+    ============================== */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .section { padding: 90px 0; }
+    .section-label {
+      font-family: var(--font-display);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+
+    /* ==============================
+       NOISE OVERLAY
+    ============================== */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.025;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ==============================
+       HEADER / NAV
+    ============================== */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10, 12, 16, 0.88);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+    .logo {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.01em;
+    }
+    .logo span { color: var(--accent); }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.875rem;
+      font-weight: 400;
+      color: var(--muted);
+      padding: 6px 14px;
+      border-radius: 8px;
+      transition: all var(--transition);
+    }
+    .nav-links a:hover {
+      color: #fff;
+      background: var(--surface2);
+      opacity: 1;
+    }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 6px;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: all var(--transition);
+    }
+    .mobile-menu {
+      display: none;
+      position: absolute;
+      top: 64px;
+      left: 0;
+      right: 0;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px;
+    }
+    .mobile-menu.open { display: block; }
+    .mobile-menu a {
+      display: block;
+      padding: 11px 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+
+    /* ==============================
+       HERO
+    ============================== */
+    .hero {
+      position: relative;
+      padding: 110px 0 90px;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero-glow {
+      position: absolute;
+      top: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 700px;
+      height: 500px;
+      background: radial-gradient(ellipse at center, rgba(0,229,160,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--accent-dim);
+      border: 1px solid rgba(0,229,160,0.25);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--accent);
+      margin-bottom: 28px;
+      font-family: var(--font-display);
+      letter-spacing: 0.03em;
+    }
+    .hero h1 { margin-bottom: 20px; }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--muted);
+      font-weight: 300;
+      max-width: 520px;
+      margin: 0 auto 40px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: #0a0c10;
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      transition: all var(--transition);
+      text-decoration: none;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px var(--accent-glow);
+      opacity: 1;
+    }
+    .btn:active { transform: translateY(0); }
+
+    /* ==============================
+       BREADCRUMB
+    ============================== */
+    .breadcrumb {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    .breadcrumb a { color: var(--muted); }
+    .breadcrumb a:hover { color: var(--accent); opacity: 1; }
+    .breadcrumb-sep { margin: 0 8px; color: var(--border-hover); }
+
+    /* ==============================
+       TOOL SECTION
+    ============================== */
+    #tool { scroll-margin-top: 80px; }
+    .tool-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      max-width: 620px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .tool-card::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, rgba(0,229,160,0.18), transparent 50%);
+      z-index: -1;
+      pointer-events: none;
+    }
+    .input-wrap {
+      position: relative;
+      margin-bottom: 22px;
+    }
+    .input-wrap label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--muted);
+      margin-bottom: 9px;
+      font-family: var(--font-display);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .pw-input {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: #fff;
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      font-weight: 400;
+      padding: 15px 50px 15px 18px;
+      outline: none;
+      transition: border-color var(--transition), box-shadow var(--transition);
+      letter-spacing: 0.03em;
+    }
+    .pw-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-dim);
+    }
+    .toggle-btn {
+      position: absolute;
+      right: 14px;
+      bottom: 14px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--muted);
+      padding: 4px;
+      line-height: 0;
+      transition: color var(--transition);
+    }
+    .toggle-btn:hover { color: var(--accent); }
+
+    /* Strength meter */
+    .strength-section { margin-bottom: 24px; }
+    .strength-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .strength-label {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--muted);
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .strength-badge {
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 3px 12px;
+      border-radius: 100px;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      transition: all var(--transition);
+    }
+    .strength-badge.none { background: var(--surface2); color: var(--muted); }
+    .strength-badge.weak { background: rgba(255,77,109,0.15); color: var(--weak); }
+    .strength-badge.medium { background: rgba(255,201,71,0.15); color: var(--medium); }
+    .strength-badge.strong { background: rgba(0,229,160,0.15); color: var(--strong); }
+
+    .meter-bars {
+      display: flex;
+      gap: 6px;
+      height: 6px;
+    }
+    .meter-bar {
+      flex: 1;
+      height: 100%;
+      background: var(--surface2);
+      border-radius: 3px;
+      transition: background var(--transition);
+      overflow: hidden;
+    }
+    .meter-bar.fill-weak { background: var(--weak); }
+    .meter-bar.fill-medium { background: var(--medium); }
+    .meter-bar.fill-strong { background: var(--strong); }
+
+    /* Criteria checks */
+    .criteria-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    .criteria-item {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 0.865rem;
+      color: var(--muted);
+      transition: color var(--transition);
+    }
+    .criteria-item.met { color: var(--accent); }
+    .criteria-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border-hover);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all var(--transition);
+    }
+    .criteria-item.met .criteria-icon {
+      background: var(--accent-dim);
+      border-color: var(--accent);
+    }
+    .criteria-icon svg { width: 10px; height: 10px; }
+
+    /* Suggestions */
+    .suggestions {
+      background: var(--surface2);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+      display: none;
+    }
+    .suggestions.visible { display: block; }
+    .suggestions-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--muted);
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 10px;
+    }
+    .suggestion-list { list-style: none; }
+    .suggestion-list li {
+      font-size: 0.875rem;
+      color: var(--muted);
+      padding: 3px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .suggestion-list li::before {
+      content: '→';
+      color: var(--medium);
+      font-size: 0.8rem;
+      flex-shrink: 0;
+    }
+    .privacy-note {
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .privacy-note svg { color: var(--accent); }
+
+    /* ==============================
+       FEATURES SECTION
+    ============================== */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-top: 48px;
+    }
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      transition: all var(--transition);
+    }
+    .feature-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-3px);
+    }
+    .feature-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--accent-dim);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      color: var(--accent);
+    }
+    .feature-card h3 {
+      font-size: 1rem;
+      margin-bottom: 6px;
+    }
+    .feature-card p { font-size: 0.875rem; }
+
+    /* ==============================
+       HOW IT WORKS
+    ============================== */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0;
+      margin-top: 48px;
+      position: relative;
+    }
+    .steps::before {
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: calc(1/8 * 100%);
+      right: calc(1/8 * 100%);
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border-hover), transparent);
+    }
+    .step {
+      text-align: center;
+      padding: 0 16px;
+    }
+    .step-num {
+      width: 56px;
+      height: 56px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--accent);
+      margin: 0 auto 18px;
+      position: relative;
+      z-index: 1;
+    }
+    .step h3 { font-size: 0.95rem; margin-bottom: 8px; }
+    .step p { font-size: 0.85rem; }
+
+    /* ==============================
+       TABLE OF CONTENTS
+    ============================== */
+    .toc-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      max-width: 700px;
+    }
+    .toc-card h2 { font-size: 1.1rem; margin-bottom: 20px; }
+    .toc-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .toc-list li a {
+      font-size: 0.9rem;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: color var(--transition);
+    }
+    .toc-list li a:hover { color: var(--accent); opacity: 1; }
+    .toc-list li a::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--border-hover);
+      flex-shrink: 0;
+    }
+
+    /* ==============================
+       SEO CONTENT
+    ============================== */
+    .content-article {
+      max-width: 780px;
+    }
+    .content-article h2 {
+      font-size: 1.6rem;
+      margin: 52px 0 16px;
+      padding-top: 52px;
+      border-top: 1px solid var(--border);
+    }
+    .content-article h2:first-of-type {
+      border-top: none;
+      padding-top: 0;
+      margin-top: 0;
+    }
+    .content-article h3 {
+      font-size: 1.15rem;
+      margin: 30px 0 12px;
+      color: #d0d3dc;
+    }
+    .content-article p {
+      margin-bottom: 18px;
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+    .content-article ul, .content-article ol {
+      margin: 0 0 18px 22px;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+    .content-article li { margin-bottom: 6px; }
+    .inline-tag {
+      display: inline;
+      background: var(--accent-dim);
+      color: var(--accent);
+      padding: 2px 8px;
+      border-radius: 5px;
+      font-size: 0.85em;
+      font-family: var(--font-display);
+      font-weight: 600;
+    }
+
+    /* ==============================
+       FAQ SECTION
+    ============================== */
+    .faq-list { max-width: 750px; margin-top: 40px; }
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+    }
+    .faq-question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 22px 0;
+      cursor: pointer;
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 1rem;
+      color: #fff;
+      gap: 16px;
+      transition: color var(--transition);
+      background: none;
+      border: none;
+      width: 100%;
+      text-align: left;
+    }
+    .faq-question:hover { color: var(--accent); }
+    .faq-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--surface2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--muted);
+      font-size: 1.1rem;
+      transition: all var(--transition);
+      line-height: 1;
+    }
+    .faq-item.open .faq-icon {
+      background: var(--accent-dim);
+      color: var(--accent);
+      transform: rotate(45deg);
+    }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1), padding 0.3s;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.75;
+    }
+    .faq-item.open .faq-answer {
+      max-height: 400px;
+      padding-bottom: 20px;
+    }
+
+    /* ==============================
+       ABOUT SECTION
+    ============================== */
+    .about-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 48px;
+      display: flex;
+      align-items: center;
+      gap: 48px;
+      max-width: 900px;
+    }
+    .about-icon {
+      width: 80px;
+      height: 80px;
+      background: var(--accent-dim);
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--accent);
+    }
+    .about-card h2 { font-size: 1.5rem; margin-bottom: 12px; }
+    .about-card p { font-size: 0.95rem; line-height: 1.75; }
+
+    /* ==============================
+       FOOTER
+    ============================== */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 0;
+    }
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .footer-copy {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+    .footer-links a {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .footer-links a:hover { color: var(--accent); opacity: 1; }
+
+    /* ==============================
+       DIVIDER
+    ============================== */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      margin: 0;
+    }
+
+    /* ==============================
+       RESPONSIVE
+    ============================== */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      header { position: relative; }
+      .hero { padding: 70px 0 60px; }
+      .tool-card { padding: 26px 20px; }
+      .criteria-grid { grid-template-columns: 1fr; }
+      .steps::before { display: none; }
+      .toc-list { grid-template-columns: 1fr; }
+      .about-card { flex-direction: column; padding: 30px 24px; gap: 24px; }
+      .footer-inner { flex-direction: column; text-align: center; }
+    }
+
+    /* ==============================
+       ANIMATIONS
+    ============================== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { animation: fadeUp 0.65s cubic-bezier(0.4,0,0.2,1) both; }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+
+    /* scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s cubic-bezier(0.4,0,0.2,1), transform 0.7s cubic-bezier(0.4,0,0.2,1);
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+<!-- ===================== HEADER ===================== -->
+<header>
+  <div class="container">
+    <nav class="nav" aria-label="Main navigation">
+      <a href="#" class="logo" aria-label="TrustedByRaju Home">Trusted<span>ByRaju</span></a>
+      <ul class="nav-links" role="list">
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#tool">Tool</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </div>
+  <div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Mobile menu">
+    <a href="#hero" class="mobile-link">Home</a>
+    <a href="#tool" class="mobile-link">Tool</a>
+    <a href="#faq" class="mobile-link">FAQ</a>
+    <a href="#about" class="mobile-link">About</a>
+  </div>
+</header>
+
+<!-- ===================== BREADCRUMB ===================== -->
+<div class="breadcrumb" aria-label="Breadcrumb">
+  <div class="container">
+    <nav>
+      <a href="https://trustedbyraju.github.io/">Home</a>
+      <span class="breadcrumb-sep" aria-hidden="true">›</span>
+      <a href="https://trustedbyraju.github.io/tools/">Tools</a>
+      <span class="breadcrumb-sep" aria-hidden="true">›</span>
+      <span>Password Strength Testing Tool</span>
+    </nav>
+  </div>
+</div>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero" id="hero">
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="container">
+    <div class="hero-badge fade-up">
+      <svg width="12" height="12" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/></svg>
+      100% Secure · Client-Side Only
+    </div>
+    <h1 class="fade-up delay-1">
+      <em>Password Strength</em><br>Testing Tool
+    </h1>
+    <p class="hero-sub fade-up delay-2">Check your password strength instantly &amp; securely — no data ever leaves your browser.</p>
+    <a href="#tool" class="btn fade-up delay-3" aria-label="Go to the password strength tester">
+      <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/></svg>
+      Test Password Now
+    </a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===================== TOOL SECTION ===================== -->
+<section class="section" id="tool">
+  <div class="container">
+    <div class="section-label">Password Strength Checker</div>
+    <h2 style="margin-bottom:10px;">Test Your Password Strength</h2>
+    <p style="margin-bottom:40px;max-width:500px;">Enter any password below. Results are instant, private, and 100% local — we never see your input.</p>
+
+    <div class="tool-card reveal">
+      <!-- Input -->
+      <div class="input-wrap">
+        <label for="passwordInput">Enter Your Password</label>
+        <input
+          type="password"
+          id="passwordInput"
+          class="pw-input"
+          placeholder="Type your password here…"
+          autocomplete="off"
+          spellcheck="false"
+          aria-label="Password input field"
+          aria-describedby="strengthResult"
+        />
+        <button class="toggle-btn" id="toggleBtn" aria-label="Show or hide password" title="Toggle password visibility">
+          <svg id="eyeIcon" width="20" height="20" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+            <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Strength Meter -->
+      <div class="strength-section" id="strengthResult" aria-live="polite">
+        <div class="strength-header">
+          <span class="strength-label">Strength</span>
+          <span class="strength-badge none" id="strengthBadge">—</span>
+        </div>
+        <div class="meter-bars" role="meter" aria-label="Password strength meter">
+          <div class="meter-bar" id="bar1" aria-hidden="true"></div>
+          <div class="meter-bar" id="bar2" aria-hidden="true"></div>
+          <div class="meter-bar" id="bar3" aria-hidden="true"></div>
+          <div class="meter-bar" id="bar4" aria-hidden="true"></div>
+        </div>
+      </div>
+
+      <!-- Criteria -->
+      <div class="criteria-grid" aria-label="Password criteria">
+        <div class="criteria-item" id="c-length" title="At least 8 characters">
+          <div class="criteria-icon">
+            <svg viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><path d="M10 3L5 8.5 2 5.5l-1 1 4 4 6-7z"/></svg>
+          </div>
+          Min 8 characters
+        </div>
+        <div class="criteria-item" id="c-upper" title="Contains uppercase letter">
+          <div class="criteria-icon">
+            <svg viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><path d="M10 3L5 8.5 2 5.5l-1 1 4 4 6-7z"/></svg>
+          </div>
+          Uppercase letter
+        </div>
+        <div class="criteria-item" id="c-lower" title="Contains lowercase letter">
+          <div class="criteria-icon">
+            <svg viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><path d="M10 3L5 8.5 2 5.5l-1 1 4 4 6-7z"/></svg>
+          </div>
+          Lowercase letter
+        </div>
+        <div class="criteria-item" id="c-number" title="Contains a number">
+          <div class="criteria-icon">
+            <svg viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><path d="M10 3L5 8.5 2 5.5l-1 1 4 4 6-7z"/></svg>
+          </div>
+          Number (0–9)
+        </div>
+        <div class="criteria-item" id="c-special" title="Contains special character">
+          <div class="criteria-icon">
+            <svg viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><path d="M10 3L5 8.5 2 5.5l-1 1 4 4 6-7z"/></svg>
+          </div>
+          Special character
+        </div>
+        <div class="criteria-item" id="c-long" title="At least 12 characters">
+          <div class="criteria-icon">
+            <svg viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><path d="M10 3L5 8.5 2 5.5l-1 1 4 4 6-7z"/></svg>
+          </div>
+          12+ characters
+        </div>
+      </div>
+
+      <!-- Suggestions -->
+      <div class="suggestions" id="suggestionBox" aria-label="Password improvement suggestions">
+        <div class="suggestions-title">How to Improve</div>
+        <ul class="suggestion-list" id="suggestionList"></ul>
+      </div>
+
+      <!-- Privacy note -->
+      <div class="privacy-note">
+        <svg width="13" height="13" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path d="M5.338 1.59a61.44 61.44 0 0 0-2.837.856.481.481 0 0 0-.328.39c-.554 4.157.726 7.19 2.253 9.188a10.725 10.725 0 0 0 2.287 2.233c.346.244.652.42.893.533.12.057.218.095.293.118a.55.55 0 0 0 .101.025.615.615 0 0 0 .1-.025c.076-.023.174-.061.294-.118.24-.113.547-.29.893-.533a10.726 10.726 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.651-.213-1.75-.56-2.837-.855C9.552 1.29 8.531 1.067 8 1.067c-.53 0-1.552.223-2.662.524zM5.072.56C6.157.265 7.31 0 8 0s1.843.265 2.928.56c1.11.3 2.229.655 2.887.87a1.54 1.54 0 0 1 1.044 1.262c.596 4.477-.787 7.795-2.465 9.99a11.775 11.775 0 0 1-2.517 2.453 7.159 7.159 0 0 1-1.048.625c-.28.132-.581.24-.829.24s-.548-.108-.829-.24a7.158 7.158 0 0 1-1.048-.625 11.777 11.777 0 0 1-2.517-2.453C1.928 10.487.545 7.169 1.141 2.692A1.54 1.54 0 0 1 2.185 1.43 62.456 62.456 0 0 1 5.072.56z"/></svg>
+        Your password is never stored or sent anywhere.
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===================== FEATURES ===================== -->
+<section class="section" id="features">
+  <div class="container">
+    <div class="section-label">Why Use Our Tool</div>
+    <h2>Built for Speed, Privacy &amp; Ease</h2>
+
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-icon" aria-hidden="true">
+          <svg width="22" height="22" fill="currentColor" viewBox="0 0 16 16"><path d="M1 0a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h4.083c.058-.344.145-.678.258-1H3a2 2 0 0 0-2-2V3a2 2 0 0 0 2-2h10a2 2 0 0 0 2 2v3.528c.38.34.717.728 1 1.154V1a1 1 0 0 0-1-1H1z"/><path d="M11.5 11a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0zM3 11a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 0-1h-4A.5.5 0 0 0 3 11zm.5-2.5a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1h-6zm0 4a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4z"/></svg>
+        </div>
+        <h3>100% Free</h3>
+        <p>No sign-up, no subscription. Use the password strength checker anytime at zero cost.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon" aria-hidden="true">
+          <svg width="22" height="22" fill="currentColor" viewBox="0 0 16 16"><path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/><path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/></svg>
+        </div>
+        <h3>Instant Results</h3>
+        <p>Real-time password analysis as you type. No button clicks required — feedback appears immediately.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon" aria-hidden="true">
+          <svg width="22" height="22" fill="currentColor" viewBox="0 0 16 16"><path d="M5.338 1.59a61.44 61.44 0 0 0-2.837.856.481.481 0 0 0-.328.39c-.554 4.157.726 7.19 2.253 9.188a10.725 10.725 0 0 0 2.287 2.233c.346.244.652.42.893.533.12.057.218.095.293.118a.55.55 0 0 0 .101.025.615.615 0 0 0 .1-.025c.076-.023.174-.061.294-.118.24-.113.547-.29.893-.533a10.726 10.726 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.651-.213-1.75-.56-2.837-.855C9.552 1.29 8.531 1.067 8 1.067c-.53 0-1.552.223-2.662.524z"/></svg>
+        </div>
+        <h3>Secure &amp; Private</h3>
+        <p>Everything runs in your browser. Your password is never transmitted, logged, or stored anywhere.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon" aria-hidden="true">
+          <svg width="22" height="22" fill="currentColor" viewBox="0 0 16 16"><path d="M11 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h6zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H5z"/><path d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></svg>
+        </div>
+        <h3>Works on Mobile</h3>
+        <p>Fully responsive design, tested across all screen sizes. Check passwords on any device, anywhere.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===================== HOW IT WORKS ===================== -->
+<section class="section" id="how-it-works">
+  <div class="container">
+    <div class="section-label">Process</div>
+    <h2>How the Password Strength Checker Works</h2>
+
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-num">1</div>
+        <h3>Type Your Password</h3>
+        <p>Enter any password into the secure input field. Toggle visibility as needed.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">2</div>
+        <h3>Instant Analysis</h3>
+        <p>Our JavaScript engine evaluates length, character variety, and complexity in real time.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">3</div>
+        <h3>See Your Score</h3>
+        <p>The strength meter updates live — Weak, Medium, or Strong — with a color-coded result.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">4</div>
+        <h3>Read Suggestions</h3>
+        <p>Get actionable tips on how to make your password stronger and harder to crack.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===================== TABLE OF CONTENTS ===================== -->
+<section class="section" id="toc">
+  <div class="container">
+    <div class="toc-card reveal">
+      <h2>📋 Table of Contents</h2>
+      <ul class="toc-list">
+        <li><a href="#tool">Password Strength Tester Tool</a></li>
+        <li><a href="#features">Features &amp; Benefits</a></li>
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="#seo-content">What Makes a Strong Password?</a></li>
+        <li><a href="#checker-guide">Password Strength Checker Guide</a></li>
+        <li><a href="#faq">Frequently Asked Questions</a></li>
+        <li><a href="#about">About This Tool</a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===================== SEO CONTENT ===================== -->
+<section class="section" id="seo-content">
+  <div class="container">
+    <article class="content-article reveal">
+
+      <h2>What Makes a Strong Password? A Complete Guide</h2>
+      <p>In today's digital landscape, a <strong>strong password</strong> is your first and most important line of defense against hackers, data breaches, and identity theft. Yet, millions of people still use passwords like <span class="inline-tag">123456</span> or <span class="inline-tag">password</span> — making themselves easy targets. Our <strong>Password Strength Testing Tool</strong> helps you identify weaknesses instantly, so you can take action before attackers do.</p>
+
+      <h3>Why Password Strength Matters</h3>
+      <p>Cybercrime is growing at an alarming rate. According to security researchers, billions of credentials are exposed in data breaches every year. Most of these breaches are made possible by weak or reused passwords. A robust password strength checker helps you understand how vulnerable your credentials actually are.</p>
+      <p>When you use our tool, you're not just getting a rating — you're learning the specific weaknesses in your password so you can create something truly uncrackable. This is what separates a professional-grade <strong>password strength checker</strong> from a simple binary "good/bad" verdict.</p>
+
+      <h3>The Four Pillars of Password Security</h3>
+      <p>Our password strength testing tool evaluates your password across four key dimensions:</p>
+      <ol>
+        <li><strong>Length</strong> — Longer passwords are exponentially harder to crack via brute force. Each additional character multiplies the number of possible combinations.</li>
+        <li><strong>Uppercase &amp; Lowercase Letters</strong> — Mixing case adds complexity. A password using both upper and lowercase has many more possible combinations than one using only lowercase.</li>
+        <li><strong>Numbers</strong> — Including digits (0–9) significantly increases entropy, making dictionary attacks ineffective.</li>
+        <li><strong>Special Characters</strong> — Symbols like <span class="inline-tag">!@#$%^&amp;*</span> are the least predictable element and dramatically improve password strength.</li>
+      </ol>
+
+      <h2 id="checker-guide">How to Use a Password Strength Checker Effectively</h2>
+      <p>Using a <strong>password strength checker</strong> is simple, but using it effectively takes a bit more thought. Here's how to get the most out of tools like ours:</p>
+
+      <h3>1. Test Variations of Your Password</h3>
+      <p>Don't just test one version. Try variations — with and without special characters, longer and shorter — to understand what makes the biggest difference. You might find that adding just two characters takes your password from Weak to Strong.</p>
+
+      <h3>2. Never Use Personal Information</h3>
+      <p>Even if your password with your birthday scores "Strong," that doesn't mean it's safe. Attackers often use <em>social engineering</em> — gathering information about you from social media — to guess passwords that include names, dates, or places.</p>
+
+      <h3>3. Aim for True Randomness</h3>
+      <p>The most secure passwords are random combinations of characters. Use a password manager to generate and store these for you. Then use our tool to verify the strength before finalizing.</p>
+
+      <h3>4. Use Unique Passwords for Every Account</h3>
+      <p>Even the strongest password becomes a liability if reused across multiple sites. If one site is breached, attackers will try the same credentials on other platforms. This is called <em>credential stuffing</em> — one of the most common attack vectors today.</p>
+
+      <h2>Strong Password Generator Tips</h2>
+      <p>Creating a strong password doesn't have to be complicated. Follow these <strong>strong password generator tips</strong> to craft credentials that are both memorable and secure:</p>
+      <ul>
+        <li>Use a <strong>passphrase</strong>: combine 4–5 random words like <span class="inline-tag">BlueCactus!Riven29</span></li>
+        <li>Start with a base word and transform it: <span class="inline-tag">Coffee → C0ff33!Raju#</span></li>
+        <li>Use the first letter of each word in a sentence: <em>"I love visiting Tokyo in spring 2024!"</em> → <span class="inline-tag">IlvTis2024!</span></li>
+        <li>Always include at least one special character and one number</li>
+        <li>Make it at least 12 characters — 16 or more is even better</li>
+        <li>Avoid common substitutions like <span class="inline-tag">@ for a</span> or <span class="inline-tag">3 for e</span> — hackers know these patterns</li>
+      </ul>
+
+      <h2>How to Create Secure Passwords in 2024</h2>
+      <p>Understanding <strong>how to create secure passwords</strong> is one of the most valuable digital skills you can develop. Here's a step-by-step approach:</p>
+
+      <h3>Step 1: Choose a Length of 12+ Characters</h3>
+      <p>Modern computers can crack short passwords in seconds. A 12-character password using mixed character types takes dramatically longer to brute-force than an 8-character one.</p>
+
+      <h3>Step 2: Mix Character Types Intentionally</h3>
+      <p>Don't just add a number at the end. Distribute uppercase letters, numbers, and symbols throughout the password for maximum unpredictability.</p>
+
+      <h3>Step 3: Avoid Common Patterns</h3>
+      <p>Sequential characters like <span class="inline-tag">abcd</span>, keyboard patterns like <span class="inline-tag">qwerty</span>, and common words found in dictionaries are all vulnerable. Our password strength testing tool flags these patterns and guides you away from them.</p>
+
+      <h3>Step 4: Store It Securely</h3>
+      <p>A strong password you can't remember doesn't help anyone. Use a reputable password manager to store all your credentials securely. Most managers also include built-in password generators.</p>
+
+      <h3>Step 5: Enable Two-Factor Authentication</h3>
+      <p>Even the strongest password can be stolen through phishing. Two-factor authentication (2FA) ensures that a stolen password alone is not enough to compromise your account.</p>
+
+      <h2>Common Password Mistakes to Avoid</h2>
+      <p>Even tech-savvy users sometimes fall into these traps:</p>
+      <ul>
+        <li>Using your name, birthdate, or pet's name</li>
+        <li>Reusing the same password on multiple sites</li>
+        <li>Using only lowercase letters</li>
+        <li>Keeping default passwords on routers and devices</li>
+        <li>Writing passwords on sticky notes near your computer</li>
+        <li>Sharing passwords over email or text messages</li>
+        <li>Never updating passwords after a known data breach</li>
+      </ul>
+
+      <h2>Why Our Password Strength Testing Tool Is Different</h2>
+      <p>Many online password strength checkers are superficial — they only check length or look for one character type. Our <strong>Password Strength Testing Tool</strong> provides a multi-dimensional analysis across all four key criteria, gives you a color-coded strength rating, and offers specific, actionable improvement suggestions in real time.</p>
+      <p>Most importantly, it's completely private. All analysis happens inside your browser using JavaScript. We never receive, log, or store your password. You can test with confidence.</p>
+
+    </article>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===================== FAQ SECTION ===================== -->
+<section class="section" id="faq">
+  <div class="container">
+    <div class="section-label">FAQ</div>
+    <h2>Frequently Asked Questions</h2>
+    <p style="margin-bottom:0; max-width: 500px;">Everything you need to know about password security and our tool.</p>
+
+    <div class="faq-list" role="list">
+
+      <div class="faq-item" role="listitem">
+        <button class="faq-question" aria-expanded="false">
+          Is this password strength tool safe to use?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer">
+          Yes, completely safe. Our tool operates 100% client-side using JavaScript that runs in your browser. Your password is never sent to any server, never logged, and never stored. You can even disconnect from the internet and the tool will continue to work perfectly — because it never needs to communicate with any external service.
+        </div>
+      </div>
+
+      <div class="faq-item" role="listitem">
+        <button class="faq-question" aria-expanded="false">
+          What makes a password strong?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer">
+          A strong password combines four key elements: (1) sufficient length — at least 12 characters, ideally 16 or more; (2) a mix of uppercase and lowercase letters; (3) at least one number (0–9); and (4) one or more special characters such as !@#$%^&amp;*. A password that satisfies all four criteria is exponentially harder to crack than one relying on just one or two factors.
+        </div>
+      </div>
+
+      <div class="faq-item" role="listitem">
+        <button class="faq-question" aria-expanded="false">
+          How does the password strength checker score passwords?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer">
+          Our password strength checker analyzes your input across six criteria in real time: minimum 8 characters, uppercase letters, lowercase letters, numbers, special characters, and a bonus for reaching 12+ characters. Each criterion that is met contributes to the overall score. A score of 0–1 is Weak, 2–3 is Medium, and 4+ is Strong. The strength bar and badge update instantly as you type.
+        </div>
+      </div>
+
+      <div class="faq-item" role="listitem">
+        <button class="faq-question" aria-expanded="false">
+          What is the ideal password length?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer">
+          Security researchers and organizations like NIST recommend a minimum password length of 12 characters for general use. For high-security accounts (banking, email, cloud storage), aim for 16 or more characters. Longer passwords are exponentially harder to crack — each additional character multiplies the number of possible combinations a hacker must try.
+        </div>
+      </div>
+
+      <div class="faq-item" role="listitem">
+        <button class="faq-question" aria-expanded="false">
+          Should I use a password manager?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer">
+          Absolutely. Password managers are the gold standard for password security. They generate truly random, highly complex passwords for every account and store them in an encrypted vault. You only need to remember one master password. Popular, reputable options include Bitwarden (free and open source), 1Password, and Dashlane. Combined with our password strength tester, they make a powerful security duo.
+        </div>
+      </div>
+
+      <div class="faq-item" role="listitem">
+        <button class="faq-question" aria-expanded="false">
+          Can I test my real passwords with this tool?
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer">
+          Yes. Since our tool is entirely client-side and never transmits any data, it's safe to test your actual passwords. However, as a general security best practice, we still recommend testing the pattern or structure of your password (e.g., swapping a few characters) rather than your exact live password when using any online tool — just to build a healthy security habit.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===================== ABOUT ===================== -->
+<section class="section" id="about">
+  <div class="container">
+    <div class="section-label">About</div>
+    <div class="about-card reveal">
+      <div class="about-icon" aria-hidden="true">
+        <svg width="38" height="38" fill="currentColor" viewBox="0 0 16 16"><path d="M5.338 1.59a61.44 61.44 0 0 0-2.837.856.481.481 0 0 0-.328.39c-.554 4.157.726 7.19 2.253 9.188a10.725 10.725 0 0 0 2.287 2.233c.346.244.652.42.893.533.12.057.218.095.293.118a.55.55 0 0 0 .101.025.615.615 0 0 0 .1-.025c.076-.023.174-.061.294-.118.24-.113.547-.29.893-.533a10.726 10.726 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.651-.213-1.75-.56-2.837-.855C9.552 1.29 8.531 1.067 8 1.067c-.53 0-1.552.223-2.662.524zM5.072.56C6.157.265 7.31 0 8 0s1.843.265 2.928.56c1.11.3 2.229.655 2.887.87a1.54 1.54 0 0 1 1.044 1.262c.596 4.477-.787 7.795-2.465 9.99a11.775 11.775 0 0 1-2.517 2.453 7.159 7.159 0 0 1-1.048.625c-.28.132-.581.24-.829.24s-.548-.108-.829-.24a7.158 7.158 0 0 1-1.048-.625 11.777 11.777 0 0 1-2.517-2.453C1.928 10.487.545 7.169 1.141 2.692A1.54 1.54 0 0 1 2.185 1.43 62.456 62.456 0 0 1 5.072.56z"/></svg>
+      </div>
+      <div>
+        <h2>About TrustedByRaju's Password Tool</h2>
+        <p>This <strong>Password Strength Testing Tool</strong> was built by <a href="https://trustedbyraju.github.io/" rel="author">TrustedByRaju</a> as part of a growing suite of free, privacy-first web tools. Our mission is simple: provide powerful, professional-grade utilities that work entirely in your browser — no servers, no tracking, no ads.</p>
+        <p style="margin-top:12px;">Every feature of this tool was designed with security and usability in mind. Whether you're a security professional, a developer, or simply someone who wants to protect their online accounts, this tool gives you the insights you need to stay safe online.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <p class="footer-copy">© 2024 <a href="https://trustedbyraju.github.io/" style="color:var(--accent);">TrustedByRaju</a>. All rights reserved.</p>
+      <ul class="footer-links">
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#tool">Tool</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#seo-content">Guide</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<!-- ===================== JAVASCRIPT ===================== -->
+<script>
+  // ===== HAMBURGER =====
+  const hamburgerBtn = document.getElementById('hamburgerBtn');
+  const mobileMenu   = document.getElementById('mobileMenu');
+  hamburgerBtn.addEventListener('click', () => {
+    const open = mobileMenu.classList.toggle('open');
+    hamburgerBtn.setAttribute('aria-expanded', open);
+  });
+  document.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      hamburgerBtn.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // ===== SHOW/HIDE PASSWORD =====
+  const pwInput   = document.getElementById('passwordInput');
+  const toggleBtn = document.getElementById('toggleBtn');
+  const eyeIcon   = document.getElementById('eyeIcon');
+
+  const EYE_OPEN = `<path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/><path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>`;
+  const EYE_CLOSED = `<path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7.028 7.028 0 0 0-2.79.588l.77.771A5.944 5.944 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.134 13.134 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755-.165.165-.337.328-.517.486l.708.709z"/><path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829l.822.822zm-2.943 1.299l.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829z"/><path d="M3.35 5.47c-.18.16-.353.322-.518.487A13.134 13.134 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7.029 7.029 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884l-12-12 .708-.708 12 12-.708.708z"/>`;
+
+  let showPw = false;
+  toggleBtn.addEventListener('click', () => {
+    showPw = !showPw;
+    pwInput.type = showPw ? 'text' : 'password';
+    eyeIcon.innerHTML = showPw ? EYE_CLOSED : EYE_OPEN;
+    toggleBtn.setAttribute('aria-label', showPw ? 'Hide password' : 'Show password');
+  });
+
+  // ===== PASSWORD STRENGTH LOGIC =====
+  const bars      = [1,2,3,4].map(i => document.getElementById('bar' + i));
+  const badge     = document.getElementById('strengthBadge');
+  const cLength   = document.getElementById('c-length');
+  const cUpper    = document.getElementById('c-upper');
+  const cLower    = document.getElementById('c-lower');
+  const cNumber   = document.getElementById('c-number');
+  const cSpecial  = document.getElementById('c-special');
+  const cLong     = document.getElementById('c-long');
+  const suggBox   = document.getElementById('suggestionBox');
+  const suggList  = document.getElementById('suggestionList');
+
+  function setCriteria(el, met) {
+    el.classList.toggle('met', met);
+  }
+
+  function clearBars() {
+    bars.forEach(b => {
+      b.className = 'meter-bar';
+    });
+  }
+
+  function fillBars(count, cls) {
+    clearBars();
+    for (let i = 0; i < count; i++) {
+      bars[i].classList.add(cls);
+    }
+  }
+
+  function checkStrength(pw) {
+    const hasLength   = pw.length >= 8;
+    const hasUpper    = /[A-Z]/.test(pw);
+    const hasLower    = /[a-z]/.test(pw);
+    const hasNumber   = /[0-9]/.test(pw);
+    const hasSpecial  = /[^A-Za-z0-9]/.test(pw);
+    const hasLong     = pw.length >= 12;
+
+    setCriteria(cLength,  hasLength);
+    setCriteria(cUpper,   hasUpper);
+    setCriteria(cLower,   hasLower);
+    setCriteria(cNumber,  hasNumber);
+    setCriteria(cSpecial, hasSpecial);
+    setCriteria(cLong,    hasLong);
+
+    let score = 0;
+    if (hasLength)  score++;
+    if (hasUpper)   score++;
+    if (hasLower)   score++;
+    if (hasNumber)  score++;
+    if (hasSpecial) score++;
+    if (hasLong)    score++;
+
+    // Compute suggestions
+    const suggestions = [];
+    if (!hasLength)  suggestions.push('Add at least 8 characters');
+    if (!hasLong)    suggestions.push('Aim for 12 or more characters for extra security');
+    if (!hasUpper)   suggestions.push('Include at least one uppercase letter (A–Z)');
+    if (!hasLower)   suggestions.push('Include at least one lowercase letter (a–z)');
+    if (!hasNumber)  suggestions.push('Add a number (0–9)');
+    if (!hasSpecial) suggestions.push('Add a special character (!@#$%^&*)');
+
+    if (pw.length === 0) {
+      clearBars();
+      badge.textContent = '—';
+      badge.className = 'strength-badge none';
+      suggBox.classList.remove('visible');
+      return;
+    }
+
+    if (score <= 2) {
+      fillBars(1, 'fill-weak');
+      badge.textContent = 'Weak';
+      badge.className = 'strength-badge weak';
+    } else if (score <= 4) {
+      fillBars(2, 'fill-medium');
+      badge.textContent = 'Medium';
+      badge.className = 'strength-badge medium';
+    } else if (score === 5) {
+      fillBars(3, 'fill-strong');
+      badge.textContent = 'Strong';
+      badge.className = 'strength-badge strong';
+    } else {
+      fillBars(4, 'fill-strong');
+      badge.textContent = 'Strong';
+      badge.className = 'strength-badge strong';
+    }
+
+    if (suggestions.length > 0) {
+      suggList.innerHTML = suggestions.map(s => `<li>${s}</li>`).join('');
+      suggBox.classList.add('visible');
+    } else {
+      suggList.innerHTML = '';
+      suggBox.classList.remove('visible');
+    }
+  }
+
+  pwInput.addEventListener('input', () => checkStrength(pwInput.value));
+
+  // ===== FAQ ACCORDION =====
+  document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const open = item.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open);
+    });
+  });
+
+  // ===== SCROLL REVEAL =====
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
